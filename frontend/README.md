@@ -1,1 +1,1 @@
-# MERN-auth-guardian-frontend
+# MERN-Auth-Guardian-Frontend
