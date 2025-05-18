@@ -1,14 +1,16 @@
 {
   "name": "mern-auth-guardian-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A backend server built with Node.js, Express, and MongoDB for the MERN stack, providing robust user authentication, JWT-based session management, and role-based access control APIs.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "build": "echo 'No build step needed for plain JS'",
     "start": "node index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "mern", "authentication", "backend", "nodejs", "express", "mongodb", "jwt", "role-based-auth", "api", "auth-backend", "mern-auth", "secure-login", "rest-api", "user-authentication", "auth-guardian"
+  ],
   "author": "UjjwalS",
   "license": "MIT",
   "type": "module",
