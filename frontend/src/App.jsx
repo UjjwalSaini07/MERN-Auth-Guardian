@@ -1,19 +1,128 @@
-import React from "react";
-import "./index.css";
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { Navigate, Route, Routes } from "react-router-dom";
+import FloatingShape from "./components/common/FloatingShape";
 
-const App = () => {
+import SignUpPage from "./pages/auth/SignUpPage";
+import LoginPage from "./pages/auth/LoginPage";
+import EmailVerificationPage from "./pages/auth/EmailVerificationPage";
+import DashboardPage from "./pages/DashboardPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import { useAuthStore } from "./store/authStore";
+import LoadingSpinner from "./components/common/LoadingSpinner";
+
+// protect routes that require authentication
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, user } = useAuthStore();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!user.isVerified) {
+    return <Navigate to="/verify-email" replace />;
+  }
+
+  return children;
+};
+
+// redirect authenticated users to the home page
+const RedirectAuthenticatedUser = ({ children }) => {
+  const { isAuthenticated, user } = useAuthStore();
+
+  if (isAuthenticated && user.isVerified) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
+function App() {
+  const { isCheckingAuth, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isCheckingAuth) return <LoadingSpinner />;
+
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-green-400 to-blue-500">
-      <div className="text-center p-12 bg-white rounded-2xl shadow-2xl max-w-2xl">
-        <h1 className="text-5xl font-extrabold text-gray-800 mb-6">
-          Welcome to <span className="text-green-500">MERN-Auth-Guardian</span>
-        </h1>
-        <button className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow hover:bg-green-600 transition">
-          Get Started
-        </button>
-      </div>
+    <div
+      className="min-h-screen bg-gradient-to-br
+    from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden"
+    >
+      <FloatingShape
+        color="bg-green-500"
+        size="w-64 h-64"
+        top="-5%"
+        left="10%"
+        delay={0}
+      />
+      <FloatingShape
+        color="bg-emerald-500"
+        size="w-48 h-48"
+        top="70%"
+        left="80%"
+        delay={5}
+      />
+      <FloatingShape
+        color="bg-lime-500"
+        size="w-32 h-32"
+        top="40%"
+        left="-10%"
+        delay={2}
+      />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <RedirectAuthenticatedUser>
+              <SignUpPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RedirectAuthenticatedUser>
+              <LoginPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
+        <Route
+          path="/forgot-password"
+          element={
+            <RedirectAuthenticatedUser>
+              <ForgotPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+
+        <Route
+          path="/reset-password/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        {/* catch all routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <Toaster />
     </div>
   );
-};
+}
 
 export default App;

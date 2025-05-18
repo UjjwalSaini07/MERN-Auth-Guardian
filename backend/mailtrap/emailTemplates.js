@@ -93,3 +93,131 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
 </body>
 </html>
 `;
+
+export const WELCOME_EMAIL_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to AuthGuardian</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4cafef, #1976d2);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .content {
+            padding: 35px;
+            line-height: 1.7;
+            font-size: 16px;
+            color: #555;
+        }
+        .welcome-message {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #222;
+        }
+        ul {
+            margin: 20px 0;
+            padding-left: 20px;
+            list-style: disc;
+        }
+        ul li {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        .button {
+            display: block;
+            width: max-content;
+            margin: 25px auto 0;
+            padding: 12px 40px;
+            background-color: #4cafef;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(76, 175, 239, 0.2);
+        }
+        .button:hover {
+            background-color: #1976d2;
+            box-shadow: 0 8px 20px rgba(76, 175, 239, 0.3);
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer a {
+            color: #4cafef;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin: 0 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Welcome to AuthGuardian!</div>
+        <div class="content" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px;">
+            <p style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                Hi <strong>{name}</strong>,
+            </p>
+            <p style="margin-bottom: 15px;">
+                Welcome to <strong>AuthGuardian</strong>! We're thrilled to have you on board as part of our journey towards providing secure and seamless authentication solutions for everyone.
+            </p>
+            <p style="margin-bottom: 15px;">Here’s how AuthGuardian helps you:</p>
+            <ul style="margin-bottom: 15px; padding-left: 20px;">
+                <li>Securely manage your user accounts and authentication flows.</li>
+                <li>Ensure top-notch protection with advanced security features.</li>
+                <li>Integrate easily into your apps with our developer-friendly APIs.</li>
+                <li>Stay ahead with real-time monitoring and detailed analytics.</li>
+            </ul>
+            <p style="margin-bottom: 15px;">
+                Get started now and explore the tools that make authentication smarter and safer for your business.
+            </p>
+            <a href="#" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-bottom: 15px;">Explore AuthGuardian</a>
+            <br/>
+            <p style="margin-bottom: 0;">
+                If you have any questions or need support, feel free to reach out. We’re here to ensure your experience with AuthGuardian is nothing short of excellent.
+            </p>
+        </div>
+        <div class="footer">
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> InvestIQ. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+`;
