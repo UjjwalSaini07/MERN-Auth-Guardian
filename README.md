@@ -18,7 +18,7 @@ MERN-Auth-Guardian is a powerful full-stack authentication solution built with M
 - 🚀 Easy integration into modern web applications with minimal setup required.
 
 ## Demo 🖥️
-You can visit the live site here - --Temporaily Not Available
+You can visit the live site here - --Temporaily Not Available--
 
 ## Technologies Used 👨🏻‍💻
 - **Reactjs** – A popular JavaScript library for building dynamic, responsive, and user-friendly web interfaces.  
@@ -52,3 +52,39 @@ You can visit the live site here - --Temporaily Not Available
   pnpm install
 ```
 - Contact to Me For Neccesaary Credential to Start the Server [Contact](https://github.com/UjjwalSaini07/MERN-Auth-Guardian/issues)
+
+## Usage 🖥️
+
+- Start the backend development server
+```bash
+   pnpm start
+ ```
+- Start the frontend application
+```bash
+   pnpm start
+ ```
+- Open your browser and navigate to http://localhost:5173 to view the localhost website
+
+## Screenshot:
+## Demo Video ShowCase:
+
+## Author
+- [@Ujjwal Saini](https://github.com/UjjwalSaini07)
+
+## Contact 📞
+Feel free to reach out if you have any questions or suggestions!
+
+- Raise an issue for the same [Issue](https://github.com/UjjwalSaini07/MERN-Auth-Guardian/issues)
+- Github: [@Ujjwal Saini](https://github.com/UjjwalSaini07)
+
+## License 📄
+License Credential [Check](https://github.com/UjjwalSaini07/MERN-Auth-Guardian/blob/main/LICENSE). </br>You can use this project the way you want Make sure to fork before. Feel free to credit me if you want to!
+
+## Feedback and Contributions 💌
+Sorry But this project not welcome Contributions! Yes u gave a Feedback and Suggestion via raising the [Issues](https://github.com/UjjwalSaini07/MERN-Auth-Guardian/issues).
+
+<div align="center">
+    <a href="#top">
+        <img src="https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white" alt="Back to Top">
+    </a>
+</div>
