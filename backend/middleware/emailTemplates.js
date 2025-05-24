@@ -215,7 +215,7 @@ export const WELCOME_EMAIL_TEMPLATE = `
             </p>
         </div>
         <div class="footer">
-            <p>&copy; <script>document.write(new Date().getFullYear());</script> InvestIQ. All rights reserved.</p>
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> AuthGuardian. All rights reserved.</p>
         </div>
     </div>
 </body>
