@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Lock, Loader } from "lucide-react";
+import { Mail, Lock, Loader, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import Input from "../../components/common/Input";
 import { useAuthStore } from "../../store/authStore";
@@ -8,6 +8,7 @@ import { useAuthStore } from "../../store/authStore";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login, isLoading, error } = useAuthStore();
 
@@ -37,13 +38,22 @@ const LoginPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <Input
-            icon={Lock}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              icon={Lock}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-4 flex items-center text-gray-400 hover:text-gray-300 focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
           <div className="flex items-center mb-6">
             <Link
@@ -81,4 +91,5 @@ const LoginPage = () => {
     </motion.div>
   );
 };
+
 export default LoginPage;
