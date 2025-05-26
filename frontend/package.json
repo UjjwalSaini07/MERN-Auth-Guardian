@@ -11,7 +11,21 @@
     "preview": "vite preview"
   },
   "keywords": [
-    "mern", "authentication", "guardian", "frontend", "react", "mern-stack", "auth", "jwt", "user-authentication", "role-based-auth", "auth-frontend", "mern-auth", "secure-login", "react-auth", "auth-guardian"
+    "mern",
+    "authentication",
+    "guardian",
+    "frontend",
+    "react",
+    "mern-stack",
+    "auth",
+    "jwt",
+    "user-authentication",
+    "role-based-auth",
+    "auth-frontend",
+    "mern-auth",
+    "secure-login",
+    "react-auth",
+    "auth-guardian"
   ],
   "author": "UjjwalS",
   "license": "MIT",
@@ -28,6 +42,7 @@
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
     "react-router-dom": "^7.6.0",
+    "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.4",
     "zustand": "^5.0.4"
