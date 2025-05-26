@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Lock, Eye, EyeOff } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthStore } from "../../store/authStore";
 import Input from "../../components/common/Input";
@@ -20,21 +21,19 @@ const ResetPasswordPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match!");
       return;
     }
+
     try {
       await resetPassword(token, password);
-
-      toast.success(
-        "Password reset successfully, redirecting to login page..."
-      );
+      toast.success("Password reset successfully! Redirecting to login page...");
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       console.error(error);
-      toast.error(error.message || "Error resetting password");
+      toast.error(error.message || "Error resetting password. Please try again.");
     }
   };
 
@@ -103,4 +102,5 @@ const ResetPasswordPage = () => {
     </motion.div>
   );
 };
+
 export default ResetPasswordPage;

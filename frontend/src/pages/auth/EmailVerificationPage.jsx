@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import toast from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore } from "../../store/authStore";
 
 const EmailVerificationPage = () => {
@@ -14,7 +15,6 @@ const EmailVerificationPage = () => {
   const handleChange = (index, value) => {
     const newCode = [...code];
 
-    // Handle pasted content
     if (value.length > 1) {
       const pastedCode = value.slice(0, 6).split("");
       for (let i = 0; i < 6; i++) {
@@ -22,7 +22,6 @@ const EmailVerificationPage = () => {
       }
       setCode(newCode);
 
-      // Focus on the last non-empty input or the first empty one
       const lastFilledIndex = newCode.findLastIndex((digit) => digit !== "");
       const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5;
       inputRefs.current[focusIndex].focus();
@@ -30,7 +29,6 @@ const EmailVerificationPage = () => {
       newCode[index] = value;
       setCode(newCode);
 
-      // Move focus to the next input field if value is entered
       if (value && index < 5) {
         inputRefs.current[index + 1].focus();
       }
@@ -48,14 +46,15 @@ const EmailVerificationPage = () => {
     const verificationCode = code.join("");
     try {
       await verifyEmail(verificationCode);
-      navigate("/");
-      toast.success("Email verified successfully");
+      toast.success("Email verified successfully! Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Error verifying email. Please try again.");
     }
   };
 
-  // Auto submit when all fields are filled
   useEffect(() => {
     if (code.every((digit) => digit !== "")) {
       handleSubmit(new Event("submit"));
@@ -107,4 +106,5 @@ const EmailVerificationPage = () => {
     </div>
   );
 };
+
 export default EmailVerificationPage;

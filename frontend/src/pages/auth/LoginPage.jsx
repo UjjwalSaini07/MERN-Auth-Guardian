@@ -4,6 +4,8 @@ import { Mail, Lock, Loader, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import Input from "../../components/common/Input";
 import { useAuthStore } from "../../store/authStore";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +16,13 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    try {
+      await login(email, password);
+      toast.success("Logged in successfully!");
+    } catch (err) {
+      toast.error(err.message || "Failed to log in. Please try again.");
+      console.error(err);
+    }
   };
 
   return (

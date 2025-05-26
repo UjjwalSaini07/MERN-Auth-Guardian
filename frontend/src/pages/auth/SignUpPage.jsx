@@ -5,6 +5,8 @@ import { Loader, Lock, Mail, User, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from "../../components/common/PasswordStrengthMeter";
 import { useAuthStore } from "../../store/authStore";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -20,11 +22,14 @@ const SignUpPage = () => {
 
     try {
       await signup(email, password, name);
+      toast.success("Account created successfully! Please verify your email.");
       navigate("/verify-email");
     } catch (error) {
+      toast.error(error.message || "Failed to create account. Please try again.");
       console.log(error);
     }
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
