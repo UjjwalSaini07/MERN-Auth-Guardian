@@ -4,7 +4,7 @@ import {
   WELCOME_EMAIL_TEMPLATE,
   PASSWORD_RESET_REQUEST_TEMPLATE,
   PASSWORD_RESET_SUCCESS_TEMPLATE,
-} from "../mailtrap/emailTemplates.js";
+} from "./emailTemplates.js"; 
 
 export const sendVerificationEmail = async (email, verificationCode) => {
   const recipient = email;

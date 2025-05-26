@@ -4,7 +4,7 @@ import cors from "cors";
 import chalk from 'chalk';
 import cookieParser from "cookie-parser";
 import path from "path";
-import { connectDB } from "./config/connectDB.js";
+import "./config/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 
 dotenv.config();

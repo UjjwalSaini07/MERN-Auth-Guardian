@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock } from "lucide-react";
-import toast from "react-hot-toast";
+import { Lock, Eye, EyeOff } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthStore } from "../../store/authStore";
 import Input from "../../components/common/Input";
@@ -9,6 +10,8 @@ import Input from "../../components/common/Input";
 const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { resetPassword, error, isLoading, message } = useAuthStore();
 
   const { token } = useParams();
@@ -18,21 +21,19 @@ const ResetPasswordPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match!");
       return;
     }
+
     try {
       await resetPassword(token, password);
-
-      toast.success(
-        "Password reset successfully, redirecting to login page..."
-      );
+      toast.success("Password reset successfully! Redirecting to login page...");
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       console.error(error);
-      toast.error(error.message || "Error resetting password");
+      toast.error(error.message || "Error resetting password. Please try again.");
     }
   };
 
@@ -51,23 +52,41 @@ const ResetPasswordPage = () => {
         {message && <p className="text-green-500 text-sm mb-4">{message}</p>}
 
         <form onSubmit={handleSubmit}>
-          <Input
-            icon={Lock}
-            type="password"
-            placeholder="New Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="relative">
+            <Input
+              icon={Lock}
+              type={showPassword ? "text" : "password"}
+              placeholder="New Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-4 flex items-center text-gray-400 hover:text-gray-300 focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
-          <Input
-            icon={Lock}
-            type="password"
-            placeholder="Confirm New Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+          <div className="relative mt-4">
+            <Input
+              icon={Lock}
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm New Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute inset-y-0 right-4 flex items-center text-gray-400 hover:text-gray-300 focus:outline-none"
+            >
+              {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -83,4 +102,5 @@ const ResetPasswordPage = () => {
     </motion.div>
   );
 };
+
 export default ResetPasswordPage;

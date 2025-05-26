@@ -2,19 +2,39 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowLeft, Loader, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore } from "../../store/authStore";
 import Input from "../../components/common/Input";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isResendVisible, setIsResendVisible] = useState(false);
 
   const { isLoading, forgotPassword } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await forgotPassword(email);
-    setIsSubmitted(true);
+    try {
+      await forgotPassword(email);
+      setIsSubmitted(true);
+      toast.success(
+        "If an account exists for this email, a reset link has been sent!"
+      );
+      setTimeout(() => setIsResendVisible(true), 10000);
+    } catch (error) {
+      toast.error(error.message || "Error sending reset link.");
+    }
+  };
+
+  const handleResend = async () => {
+    try {
+      await forgotPassword(email);
+      toast.info("A new reset link has been sent to your email.");
+    } catch (error) {
+      toast.error(error.message || "Error resending reset link.");
+    }
   };
 
   return (
@@ -32,7 +52,7 @@ const ForgotPasswordPage = () => {
         {!isSubmitted ? (
           <form onSubmit={handleSubmit}>
             <p className="text-gray-300 mb-6 text-center">
-              Enter your email address and we'll send you a link to reset your
+              Enter your email address, and we'll send you a link to reset your
               password.
             </p>
             <Input
@@ -48,6 +68,8 @@ const ForgotPasswordPage = () => {
               whileTap={{ scale: 0.98 }}
               className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
               type="submit"
+              disabled={isLoading}
+              aria-live="polite"
             >
               {isLoading ? (
                 <Loader className="size-6 animate-spin mx-auto" />
@@ -67,9 +89,17 @@ const ForgotPasswordPage = () => {
               <Mail className="h-8 w-8 text-white" />
             </motion.div>
             <p className="text-gray-300 mb-6">
-              If an account exists for {email}, you will receive a password
-              reset link shortly.
+              If an account exists for <span className="font-bold">{email}</span>, you
+              will receive a password reset link shortly.
             </p>
+            {isResendVisible && (
+              <button
+                onClick={handleResend}
+                className="text-sm text-green-400 hover:underline focus:outline-none mt-4"
+              >
+                Resend Email
+              </button>
+            )}
           </div>
         )}
       </div>

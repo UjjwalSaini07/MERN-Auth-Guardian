@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-export const connectDB = async () => {
-	try {
-		console.log("mongo_uri: ", process.env.MONGO_URI);
-		const conn = await mongoose.connect(process.env.MONGO_URI);
-		console.log(`MongoDB Connected: ${conn.connection.host}`);
-	} catch (error) {
-		console.log("Error connection to MongoDB: ", error.message);
-		process.exit(1); // 1 is failure, 0 status code is success
-	}
-};
+dotenv.config();
+
+const dbUrl = process.env.MONGODB_URI;
+console.log("Database URL:", dbUrl);
+
+if (!dbUrl) {
+  console.error(
+    "Error: Database URL (DB_URL) is not defined in the environment variables."
+  );
+  process.exit(1); // Exit with failure status code
+}
+mongoose
+  .connect(dbUrl)
+  .then(() => {
+    console.log("✅ Successfully connected to the database.");
+  })
+  .catch((error) => {
+    console.error("❌ Database connection failed.");
+    console.error("Details:", error);
+  });
